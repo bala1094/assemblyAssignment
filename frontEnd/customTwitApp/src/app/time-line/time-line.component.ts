@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { RestApiService} from './../services/rest-api.service';
+
 @Component({
   selector: 'app-time-line',
   templateUrl: './time-line.component.html',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TimeLineComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public restApiService: RestApiService,
+  ) { }
 
   ngOnInit() {
   }
-
+  fetchTweets() {
+    this.restApiService.fetchTweets();
+  }
 }

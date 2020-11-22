@@ -30,7 +30,7 @@ export class RestApiService {
     this.http.get(`${baseUrl}/login/success`, {withCredentials: true}).subscribe((res: any) => {
         if (res.user) {
           this.userDetails = res.user;
-          console.log(this.userDetails._id);
+          console.log(this.userDetails);
           this.userLoggedIn = true;
           this.router.navigateByUrl('home');
         }
@@ -41,8 +41,10 @@ export class RestApiService {
      }));
   }
 
-  fetchTweets(days) {
-    console.log(`${baseUrl}fetchTweets/${days}`);
-    this.http.get(`${baseUrl}fetchTweets/${days}`);
+  fetchTweets() {
+    console.log(`${baseUrl}/fetchTweets`);
+    this.http.get(`${baseUrl}/fetchTweets`).subscribe(res => {
+      console.log(res);
+    });
   }
 }
