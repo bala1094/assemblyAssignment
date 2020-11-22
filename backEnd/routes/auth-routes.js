@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
-const CLIENT_HOME_PAGE_URL = "http://localhost:4200/home";
+const CLIENT_HOME_PAGE_URL = "http://localhost:4200/loggedIn";
 
 // when login is successful, retrieve user info
 router.get("/login/success", (req, res) => {
@@ -25,7 +25,7 @@ router.get("/login/failed", (req, res) => {
 // When logout, redirect to client
 router.get("/logout", (req, res) => {
   req.logout();
-  res.redirect(CLIENT_HOME_PAGE_URL);
+  res.redirect("http://localhost:4200/");
 });
 
 // auth with twitter

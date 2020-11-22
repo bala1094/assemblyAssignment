@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { TimeLineComponent } from './time-line/time-line.component';
 import { CustomTimeLoneComponent } from './custom-time-lone/custom-time-lone.component';
 import { RestApiService} from './services/rest-api.service';
+import { LoggedInComponent } from './logged-in/logged-in.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { RestApiService} from './services/rest-api.service';
     AppComponent,
     HomeComponent,
     TimeLineComponent,
-    CustomTimeLoneComponent
+    CustomTimeLoneComponent,
+    LoggedInComponent
   ],
   imports: [
     BrowserModule,

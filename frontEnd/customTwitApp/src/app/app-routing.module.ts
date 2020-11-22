@@ -5,11 +5,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { TimeLineComponent } from './time-line/time-line.component';
 import { CustomTimeLoneComponent } from './custom-time-lone/custom-time-lone.component';
+import { LoggedInComponent } from './logged-in/logged-in.component';
 
 const routes = [
   { path: 'timeline', component: TimeLineComponent, },
   { path: 'home', component: HomeComponent, },
   { path: 'customtimeline', component: CustomTimeLoneComponent, },
+  { path: 'loggedIn', component: LoggedInComponent, },
   { path: '', redirectTo: '/home', pathMatch: 'full'},
 ];
 
