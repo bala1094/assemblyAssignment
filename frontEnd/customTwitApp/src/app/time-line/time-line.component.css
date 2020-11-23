@@ -1,0 +1,19 @@
+.tweets {
+    border: 1px solid red;
+    width: 100%;
+    margin : 10px;
+}
+
+.tweet-containter{
+    width: 50%;
+    overflow:hidden;
+    overflow-y:scroll;
+    height: 400px;
+}
+.fetch-btn {
+    padding: 5px;
+    background-color: gray;
+    width: 5%;
+    text-align: center;
+    cursor: pointer;
+  }

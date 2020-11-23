@@ -1,21 +1,25 @@
 
 <div class="topnav">
   <a class="active"  routerLink="/">Home</a>
-  <a  routerLink="/">Dummy</a>
-  <a  routerLink="/">Dummy</a>
   <div class="login-container">
-      <a *ngIf=!loggedIn (click)="loginUser()"> Login</a>
-      <a *ngIf=loggedIn (click)="logoutUser()"> Logout</a>
+    <a *ngIf="!restApiService.userLoggedIn" (click)="loginUser()"> Login</a>
+    <a *ngIf="restApiService.userLoggedIn" (click)="logoutUser()"> Logout</a>
   </div>
 </div>
 
 
-<div *ngIf=loggedIn class="bottom-containter">
-  {{userDetails.name}} has been successfully logged in
+<div *ngIf="restApiService.userLoggedIn" class="bottom-containter">
+  <div class="welcome-text">
+    <p>Welcome {{userDetails.name}}!!! You have successfully logged in</p>
+  </div>
   <nav>
-    <ul>
-      <li><a routerLink="/timeline">timeline</a></li>
-      <li><a routerLink="/customtimeline">customtimeline</a></li>
-    </ul>
+    <div class="topnav">
+      <a class="active"  routerLink="/timeline">Timeline</a>
+      <a class="active"  routerLink="/customtimeline">Custom Timeline</a>
+    </div>  
   </nav>
 </div>
+
+
+
+

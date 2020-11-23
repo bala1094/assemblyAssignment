@@ -1,3 +1,23 @@
-<p (click)="fetchTweets()">
-  Fetch tweets
-</p>
+<div class="topnav">
+  <a  routerLink="/">Home</a>
+  <a  class="active" routerLink="/timeline">Timeline</a>
+  <a  routerLink="/customtimeline">CustomTimeLine</a>
+  <div class="login-container">
+      <a *ngIf="!restApiService.userLoggedIn" (click)="loginUser()"> Login</a>
+      <a *ngIf="restApiService.userLoggedIn" (click)="logoutUser()"> Logout</a>
+  </div>
+</div>
+
+<div *ngIf="restApiService.userLoggedIn">
+  <p (click)="fetchTweets()" class="fetch-btn">Click to fetch tweets</p>
+</div>
+
+
+<div *ngIf="restApiService.fetchTweetCompleted" class="tweet-containter">
+  <div *ngFor="let tweet of restApiService.tweets" class="tweets">
+    <li>Name: {{tweet.name}}</li>
+    <li>Posted time: {{tweet.date | date:'medium'}}</li>
+    <li>Location: {{tweet.location}}</li>
+    <!-- <a href="{{tweet.srcUrl}}">Tweet Link</a> -->
+  </div>
+</div>  

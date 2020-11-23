@@ -2,28 +2,29 @@ const router = require("express").Router();
 const passport = require("passport");
 const CLIENT_HOME_PAGE_URL = "http://localhost:4200/loggedIn";
 var Twitter = require('twitter-js-client').Twitter;
+const keys = require("./../config/keys");
 
 // when login is successful, retrieve user info
     //Callback functions
     var error = function (err, response, body) {
     	console.log('ERROR [%s]', err);
     };
-    var temp;
     var success = function (data) {
       console.log(data)
     };
+
     var config = {
-      "consumerKey": "psU18q4L0CKisfwxSZPF4djsk",
-    	"consumerSecret": "zhK3RNcU58BcCczKnXerUFtos9JLWk7qITfkGUYhHCo7TQ1Urz",
-    	"accessToken": "1344294792-sSJOyNm8SjPksKwy84PMRh89wIAmvCcXZwKWL5S",
-    	"accessTokenSecret": "r2DMJGkF70QN9NAL9XheRJA8QJ2WwzCKJP6t5Rifxdd1V",
+      "consumerKey": keys.TWITTER_CONSUMER_KEY,
+    	"consumerSecret": keys.TWITTER_CONSUMER_SECRET,
+    	"accessToken": keys.TWITTER_ACCESS_TOKEN,
+    	"accessTokenSecret": keys.TWITTER_TOKEN_SECRET,
     	"callBackUrl": "http://localhost:4200/timeline"
     }
     var twitter = new Twitter(config);
 
-router.get("/fetchTweets",(res,req)=>{
-  twitter.getMentionsTimeline({ count: '2'}, error, data=> {
-    return res.json(data)
+router.get("/fetchTweets",(req,res)=>{
+    twitter.getHomeTimeline({ count: '51'}, error, data=> {
+    return res.send(data);
   });
 })
 

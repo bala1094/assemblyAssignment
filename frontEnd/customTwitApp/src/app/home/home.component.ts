@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.loggedIn = this.restApiService.userLoggedIn;
     this.userDetails = this.restApiService.userDetails;
   }
 
