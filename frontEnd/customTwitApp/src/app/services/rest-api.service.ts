@@ -45,23 +45,41 @@ export class RestApiService {
   }
 
   fetchTweets() {
-    this.tweets = [];
-    console.log(`${baseUrl}/fetchTweets`);
     this.http.get(`${baseUrl}/fetchTweets`).subscribe(res => {
-      this.fetchTweetCompleted = true;
-        for (const i in res) {
-          if (res.hasOwnProperty(i)) {
-            console.log(res[i]);
-            this.tweets.push({
-              date: new Date(res[i].created_at),
-              // srcUrl: res[i].text.match(/(https?:\/\/[^ ]*)/)[0],
-              name: res[i].user.name,
-              location: res[i].user.location,
-              hashTag: res[i].entities.hashtags
-            });
-          }
-        }
-        console.log(this.tweets);
+      this.tweetObjectSeparator(res);
     });
+  }
+
+  tweetObjectSeparator(tweets) {
+    this.tweets = [];
+    this.fetchTweetCompleted = true;
+    let splittedText = [];
+    for (const i in tweets) {
+      if (tweets.hasOwnProperty(i)) {
+        console.log(tweets[i]);
+        if (tweets[i].full_text.includes('https')) {
+          splittedText = tweets[i].full_text.split('https');
+          splittedText[1] = 'https' + splittedText[1];
+
+        } else if ( tweets[i].retweeted_status.full_text.includes('https')) {
+          splittedText[0] =  tweets[i].full_text;
+          splittedText[1] =  'https' +  tweets[i].retweeted_status.full_text.split('https')[1];
+        } else {
+          splittedText[0] =  tweets[i].full_text;
+          splittedText[1] = null;
+        }
+
+        this.tweets.push({
+          date: new Date(tweets[i].created_at),
+          name: tweets[i].user.name,
+          location: tweets[i].user.location,
+          hashTag: tweets[i].entities.hashtags,
+          text: splittedText[0],
+          src_url: splittedText[1],
+          profile_pic: tweets[i].user.profile_image_url_https
+        });
+      }
+    }
+    console.log(this.tweets);
   }
 }

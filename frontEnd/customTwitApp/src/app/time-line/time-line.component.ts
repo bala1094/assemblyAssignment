@@ -30,4 +30,8 @@ export class TimeLineComponent implements OnInit {
   logoutUser() {
     this.restApiService.logoutUser();
   }
+
+  urlOpen(url) {
+    window.open(url);
+  }
 }

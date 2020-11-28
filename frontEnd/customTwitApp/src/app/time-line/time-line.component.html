@@ -1,23 +1,45 @@
-<div class="topnav">
-  <a  routerLink="/">Home</a>
-  <a  class="active" routerLink="/timeline">Timeline</a>
-  <a  routerLink="/customtimeline">CustomTimeLine</a>
-  <div class="login-container">
-      <a *ngIf="!restApiService.userLoggedIn" (click)="loginUser()"> Login</a>
-      <a *ngIf="restApiService.userLoggedIn" (click)="logoutUser()"> Logout</a>
+<div class="column">
+  <div class="left-container">
+    <div class="login-info">
+      <p class="header-name" *ngIf="!restApiService.userLoggedIn">Login to view Tweets</p>
+      <p class="header-name" *ngIf="restApiService.userLoggedIn">Welcome {{restApiService.userDetails.name}}</p>
+    </div>
+    <div clas="navigator">
+      <a  routerLink="/">Home</a>
+      <a  class="active" routerLink="/timeline">Timeline</a>
+      <a  routerLink="/customtimeline">CustomTimeLine</a>
+    </div>
+  </div>
+
+  <div class="right-container">
+    <div class="fetch-header">
+      <div *ngIf="restApiService.userLoggedIn">
+        <p (click)="fetchTweets()" class="fetch-btn">Click to fetch tweets</p>
+      </div>
+      <div class="login-container">
+        <p *ngIf="!restApiService.userLoggedIn" (click)="loginUser()"> Login</p>
+        <p *ngIf="restApiService.userLoggedIn" (click)="logoutUser()"> Logout</p>
+      </div>
+    </div>
+    <div *ngIf="restApiService.fetchTweetCompleted" class="tweets">
+      <div *ngFor="let tweet of restApiService.tweets">
+        <div class="tweet-containter">
+          <div class="tweet-containter-header">
+            <p class="tweet-containter-name">{{tweet.name}}<p>
+            <img src="{{tweet.profile_pic}}">
+            <p class="tweet-containter-location">{{tweet.location}}<p>
+          </div>
+          <div class="tweet-containter-body">
+            <p class="tweet-containter-text">{{tweet.text}}</p>
+            <p class="tweet-containter-hashtags"></p>
+          </div>
+          <div class="tweet-containter-footer">
+            <p class="tweet-containter-date">{{tweet.date | date:'medium'}}</p>
+            <p (click)="urlOpen(tweet.src_url)" class="tweet-containter-src-url">Open Source</p>
+          </div>
+          <div class="tweet-containter-end"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
-<div *ngIf="restApiService.userLoggedIn">
-  <p (click)="fetchTweets()" class="fetch-btn">Click to fetch tweets</p>
-</div>
-
-
-<div *ngIf="restApiService.fetchTweetCompleted" class="tweet-containter">
-  <div *ngFor="let tweet of restApiService.tweets" class="tweets">
-    <li>Name: {{tweet.name}}</li>
-    <li>Posted time: {{tweet.date | date:'medium'}}</li>
-    <li>Location: {{tweet.location}}</li>
-    <!-- <a href="{{tweet.srcUrl}}">Tweet Link</a> -->
-  </div>
-</div>  
