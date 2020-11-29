@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { RestApiService} from './../services/rest-api.service';
 
@@ -8,8 +9,10 @@ import { RestApiService} from './../services/rest-api.service';
   styleUrls: ['./time-line.component.css']
 })
 export class TimeLineComponent implements OnInit {
+  fetchTweetInProgress: boolean;
   constructor(
     public restApiService: RestApiService,
+    private spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit() {
@@ -17,10 +20,14 @@ export class TimeLineComponent implements OnInit {
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     this.restApiService.fetchTweetCompleted = false;
+    this.fetchTweetInProgress = false;
   }
 
   fetchTweets() {
-    this.restApiService.fetchTweets();
+    this.spinner.show();
+    this.restApiService.fetchTweets(() => {
+      this.spinner.hide();
+    });
   }
 
   loginUser() {

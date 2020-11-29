@@ -12,6 +12,7 @@ import { RestApiService} from './services/rest-api.service';
 import { LoggedInComponent } from './logged-in/logged-in.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { FilterUniqueElementsPipe } from './pipes/filter-unique-elements.pipe';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { FilterUniqueElementsPipe } from './pipes/filter-unique-elements.pipe';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxSpinnerModule
   ],
   providers: [RestApiService],
   bootstrap: [AppComponent]

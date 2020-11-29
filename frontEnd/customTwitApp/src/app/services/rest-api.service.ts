@@ -14,7 +14,8 @@ export class RestApiService {
   userDetails: UserCredentail;
   fetchTweetCompleted: boolean;
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private router: Router) { }
 
   loginUser() {
@@ -44,26 +45,31 @@ export class RestApiService {
      }));
   }
 
-  fetchTweets() {
+  async fetchTweets(callback) {
     this.http.get(`${baseUrl}/fetchTweets`).subscribe(res => {
       this.tweetObjectSeparator(res);
+      callback();
     });
   }
 
   tweetObjectSeparator(tweets) {
     this.tweets = [];
+    let tempString;
     this.fetchTweetCompleted = true;
     let splittedText = [];
     for (const i in tweets) {
       if (tweets.hasOwnProperty(i)) {
-        console.log(tweets[i]);
-        if (tweets[i].full_text.includes('https')) {
+        tempString = '';
+        // console.log(tweets[i]);
+        if (tweets[i].full_text.includes('https') || false) {
           splittedText = tweets[i].full_text.split('https');
-          splittedText[1] = 'https' + splittedText[1];
+          tempString =  splittedText[1].includes(' ') ? splittedText[1].split(' ')[0] : splittedText[1];
+          splittedText[1] = 'https' + tempString;
 
-        } else if ( tweets[i].retweeted_status.full_text.includes('https')) {
-          splittedText[0] =  tweets[i].full_text;
-          splittedText[1] =  'https' +  tweets[i].retweeted_status.full_text.split('https')[1];
+        } else if ( (('retweeted_status' in tweets[i]) && tweets[i].retweeted_status.full_text.includes('https')) || false) {
+          splittedText =  tweets[i].retweeted_status.full_text.split('https');
+          tempString =  splittedText[1].includes(' ') ? splittedText[1].split(' ')[0] : splittedText[1];
+          splittedText[1] = 'https' + tempString;
         } else {
           splittedText[0] =  tweets[i].full_text;
           splittedText[1] = null;
@@ -80,6 +86,6 @@ export class RestApiService {
         });
       }
     }
-    console.log(this.tweets);
+    // console.log(this.tweets);
   }
 }

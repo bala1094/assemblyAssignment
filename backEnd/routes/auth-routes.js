@@ -23,7 +23,7 @@ const keys = require("./../config/keys");
     var twitter = new Twitter(config);
 
 router.get("/fetchTweets",(req,res)=>{
-    twitter.getHomeTimeline({ count: '51'}, error, data=> {
+    twitter.getHomeTimeline({ count: '201', tweet_mode: 'extended'}, error, data=> {
     return res.send(data);
   });
 })

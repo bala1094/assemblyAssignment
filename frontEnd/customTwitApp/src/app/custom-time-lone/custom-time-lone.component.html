@@ -15,14 +15,24 @@
   <ul class="tags">
     <li *ngFor="let hashTag of hashTags">{{hashTag}}</li>
   </ul>
-</div>
-
-<div *ngIf="restApiService.userLoggedIn && restApiService.tweets.length > 0">
   <div *ngFor="let tweet of restApiService.tweets | filter: searchHashTag" class="tweets">
-    <li>Posted time: {{tweet.date | date:'medium'}}</li>
-    <li>Location: {{tweet.location}}</li>
-    <li>Name: {{tweet.name}}</li>
-    <!-- <a href="{{tweet.srcUrl}}">Tweet Link</a> -->
-  </div>
+    <div class="tweet-containter">
+      <div class="tweet-containter-header">
+        <div class="tweet-container-title">
+          <img src="{{tweet.profile_pic}}">
+          <span class="tweet-containter-name">{{tweet.name}}</span>
+        </div>
+        <span class="tweet-containter-location">{{tweet.location}}</span>
+      </div>
+      <div class="tweet-containter-body">
+        <span class="tweet-containter-text">{{tweet.text}}</span>
+        <span class="tweet-containter-hashtags"></span>
+      </div>
+      <div class="tweet-containter-footer">
+        <span class="tweet-containter-date">{{tweet.date | date:'medium'}}</span>
+        <span *ngIf="tweet.src_url" (click)="urlOpen(tweet.src_url)" class="tweet-containter-src-url">Open Tweet Source</span>
+      </div>
+      <div class="tweet-containter-end"></div>
+    </div>
 </div>
 

@@ -4,3 +4,41 @@
     overflow:hidden;
     overflow-y:scroll;
 }
+
+.tweet-container-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .tweet-container-title span {
+    margin-left: 10px;
+  }
+  
+  .tweet-container-title img {
+    border-radius: 50%;
+  }
+  
+  .tweet-containter-header, .tweet-containter-footer {
+    margin: 20px;
+  }
+  
+  .tweet-containter-body {
+    margin: 0px 20px;
+  }
+  
+  .tweet-containter-location {
+    margin: 10px;
+    font-style: italic;
+    font-size: 14px;
+  }
+  
+  .tweet-containter-footer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .tweet-containter-src-url {
+    background-color: #ccc;
+    cursor: pointer;
+  }

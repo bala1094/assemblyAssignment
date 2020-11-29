@@ -15,6 +15,7 @@
     <div class="fetch-header">
       <div *ngIf="restApiService.userLoggedIn">
         <p (click)="fetchTweets()" class="fetch-btn">Click to fetch tweets</p>
+        <span *ngIf="fetchTweetInProgress">Loading</span>
       </div>
       <div class="login-container">
         <p *ngIf="!restApiService.userLoggedIn" (click)="loginUser()"> Login</p>
@@ -25,17 +26,19 @@
       <div *ngFor="let tweet of restApiService.tweets">
         <div class="tweet-containter">
           <div class="tweet-containter-header">
-            <p class="tweet-containter-name">{{tweet.name}}<p>
-            <img src="{{tweet.profile_pic}}">
-            <p class="tweet-containter-location">{{tweet.location}}<p>
+            <div class="tweet-container-title">
+              <img src="{{tweet.profile_pic}}">
+              <span class="tweet-containter-name">{{tweet.name}}</span>
+            </div>
+            <span class="tweet-containter-location">{{tweet.location}}</span>
           </div>
           <div class="tweet-containter-body">
-            <p class="tweet-containter-text">{{tweet.text}}</p>
-            <p class="tweet-containter-hashtags"></p>
+            <span class="tweet-containter-text">{{tweet.text}}</span>
+            <span class="tweet-containter-hashtags"></span>
           </div>
           <div class="tweet-containter-footer">
-            <p class="tweet-containter-date">{{tweet.date | date:'medium'}}</p>
-            <p (click)="urlOpen(tweet.src_url)" class="tweet-containter-src-url">Open Source</p>
+            <span class="tweet-containter-date">{{tweet.date | date:'medium'}}</span>
+            <span *ngIf="tweet.src_url" (click)="urlOpen(tweet.src_url)" class="tweet-containter-src-url">Open Tweet Source</span>
           </div>
           <div class="tweet-containter-end"></div>
         </div>
@@ -43,3 +46,5 @@
     </div>
   </div>
 </div>
+
+<ngx-spinner type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>

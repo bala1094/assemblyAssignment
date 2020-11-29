@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RestApiService} from './../services/rest-api.service';
-
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-custom-time-lone',
   templateUrl: './custom-time-lone.component.html',
@@ -12,9 +12,14 @@ export class CustomTimeLoneComponent implements OnInit {
   filterHashTag = '';
   constructor(
     public restApiService: RestApiService,
+    private router: Router
     ) { }
 
   ngOnInit() {
+    if (this.restApiService.tweets.length <= 0) {
+      alert('fetch tweets in timeline page');
+      this.router.navigateByUrl('timeline');
+    }
     this.extractHashTags();
   }
   loginUser() {
@@ -36,4 +41,7 @@ export class CustomTimeLoneComponent implements OnInit {
     this.hashTags = this.hashTags.filter(this.onlyUnique);
   }
 
+  urlOpen(url) {
+    window.open(url);
+  }
 }
